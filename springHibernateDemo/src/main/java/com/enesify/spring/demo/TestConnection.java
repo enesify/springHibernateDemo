@@ -1,8 +1,9 @@
-package com.enesify.spring.demo.connection;
+package com.enesify.spring.demo;
 
 import java.lang.invoke.MethodHandles;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Scanner;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,6 +24,7 @@ public class TestConnection {
         oracleDataSource.setURL(oracleDbConnectionString);
         oracleDataSource.setUser("ENES");
         oracleDataSource.setPassword("enes");
+        
         
         try {
 			con = oracleDataSource.getConnection();
