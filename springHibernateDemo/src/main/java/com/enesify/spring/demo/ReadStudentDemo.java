@@ -13,11 +13,11 @@ public class ReadStudentDemo {
 	
 	public static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
-	public static SessionFactory sessionFactory;
+	private static SessionFactory sessionFactory;
 
-	public static Session session;
+	private static Session session;
 
-	public static CreateSession createSession;
+	private static CreateSession createSession;
 
 	public static void main(String[] args) {
 
@@ -41,7 +41,7 @@ public class ReadStudentDemo {
 
 			Student myStudent = session.get(Student.class, 1);
 			
-			LOGGER.info("The student with id -> 1 is : " + myStudent);
+			LOGGER.info(myStudent.toString());
 
 		}
 

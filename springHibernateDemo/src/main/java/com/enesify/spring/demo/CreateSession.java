@@ -15,9 +15,9 @@ public class CreateSession {
 
 	public static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
-	public static SessionFactory factory;
+	private static SessionFactory factory;
 
-	public static Session session;
+	private static Session session;
 
 	public CreateSession() {
 		try {
@@ -29,7 +29,7 @@ public class CreateSession {
 		}
 	}
 
-	public void startSession() {
+	public static void startSession() {
 		// create session factory
 		try {
 			factory = new Configuration().configure().addAnnotatedClass(Student.class).buildSessionFactory();
@@ -59,15 +59,15 @@ public class CreateSession {
 		return factory;
 	}
 
-	public void setFactory(SessionFactory factory) {
+	public static void setFactory(SessionFactory factory) {
 		CreateSession.factory = factory;
 	}
 
-	public Session getSession() {
+	public static Session getSession() {
 		return session;
 	}
 
-	public void setSession(Session session) {
+	public static void setSession(Session session) {
 		CreateSession.session = session;
 	}
 

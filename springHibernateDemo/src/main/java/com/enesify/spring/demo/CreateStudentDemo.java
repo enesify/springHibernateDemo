@@ -13,19 +13,19 @@ public class CreateStudentDemo {
 
 	public static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
-	public static SessionFactory sessionFactory;
+	private static SessionFactory sessionFactory;
 
-	public static Session session;
+	private static Session session;
 
-	public static CreateSession createSession;
+	private static CreateSession createSession;
 
-	public static void main(String[] args) {
+	private static void main(String[] args) {
 
 		createSession = new CreateSession();
 
 		sessionFactory = createSession.getFactory();
 
-		session = createSession.getSession();
+		session = CreateSession.getSession();
 
 		saveStudent();
 
