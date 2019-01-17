@@ -2,10 +2,8 @@ package com.enesify.spring.demo;
 
 import java.lang.invoke.MethodHandles;
 
-import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,63 +12,45 @@ import com.enesify.spring.demo.entity.Student;
 public class ReadStudentDemo {
 	
 	public static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
-	
-	public static SessionFactory factory;
-	
+
+	public static SessionFactory sessionFactory;
+
 	public static Session session;
+
+	public static CreateSession createSession;
 
 	public static void main(String[] args) {
 
-		// create session factory
-		try {
-			factory = new Configuration().configure().addAnnotatedClass(Student.class).buildSessionFactory();
-		} catch (HibernateException ex) {
-			// TODO Auto-generated catch block
-			LOGGER.error(ex.getMessage());
-		}
+		createSession = new CreateSession();
 
-		// create session
-		try {
-			session = factory.getCurrentSession();
-		} catch (HibernateException ex) {
-			// TODO Auto-generated catch block
-			LOGGER.error(ex.getMessage());;
-		}
-		
-		saveStudent();
-		
-		
+		sessionFactory = createSession.getFactory();
+
+		session = sessionFactory.getCurrentSession();
+
+		readStudent();
 
 	}
-	
-	public static void saveStudent() {
-		try {			
-			//create a student object
-			LOGGER.info("Creating new student object...");
-			
-			Student newStudent = new Student("Paul","Wall","paul@haul.com");
-			
-			//start a transaction
+
+	public static void readStudent() {
+		try {
+			// create a student object
+			LOGGER.info("Retrieving student...");
+
+			// start a transaction
 			session.beginTransaction();
+
+			Student myStudent = session.get(Student.class, 1);
 			
-			//save the student object
-			LOGGER.info("Saving the student...");
-			session.save(newStudent);
-			
-			//commit transaction
-			session.getTransaction().commit();
-			
-			LOGGER.info("Done!");
-			
-		} 
-		
+			LOGGER.info("The student with id -> 1 is : " + myStudent);
+
+		}
+
 		catch (Exception ex) {
 			LOGGER.error(ex.getMessage());
 		}
-		
+
 		finally {
-			factory.close();
+			createSession.closeSessionFactory();
 		}
 	}
-
 }
