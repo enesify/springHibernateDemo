@@ -13,8 +13,6 @@ public class ReadStudentDemo {
 	
 	public static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
-	private static SessionFactory sessionFactory;
-
 	private static Session session;
 
 	private static CreateSession createSession;
@@ -23,7 +21,7 @@ public class ReadStudentDemo {
 
 		createSession = new CreateSession();
 
-		sessionFactory = createSession.getFactory();
+		SessionFactory sessionFactory = createSession.getFactory();
 
 		session = sessionFactory.getCurrentSession();
 

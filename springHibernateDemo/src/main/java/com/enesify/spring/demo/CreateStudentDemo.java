@@ -3,7 +3,6 @@ package com.enesify.spring.demo;
 import java.lang.invoke.MethodHandles;
 
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -13,17 +12,13 @@ public class CreateStudentDemo {
 
 	public static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
-	private static SessionFactory sessionFactory;
-
 	private static Session session;
 
 	private static CreateSession createSession;
 
-	private static void main(String[] args) {
+	public static void main(String[] args) {
 
 		createSession = new CreateSession();
-
-		sessionFactory = createSession.getFactory();
 
 		session = CreateSession.getSession();
 
