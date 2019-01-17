@@ -39,7 +39,8 @@ public class CreateSession {
 
 		// create session
 		try {
-			session = factory.getCurrentSession();
+			session.close();
+			session = factory.openSession();
 		} catch (HibernateException ex) {
 			LOGGER.error(ex.getMessage());
 		}

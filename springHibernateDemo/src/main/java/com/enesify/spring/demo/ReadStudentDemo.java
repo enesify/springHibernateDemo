@@ -1,6 +1,7 @@
 package com.enesify.spring.demo;
 
 import java.lang.invoke.MethodHandles;
+import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -10,7 +11,7 @@ import org.slf4j.LoggerFactory;
 import com.enesify.spring.demo.entity.Student;
 
 public class ReadStudentDemo {
-	
+
 	public static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
 	private static Session session;
@@ -25,20 +26,23 @@ public class ReadStudentDemo {
 
 		session = sessionFactory.getCurrentSession();
 
-		readStudent();
+		// start a transaction
+		session.beginTransaction();
+
+		// readStudent();
+		// queryStudent();
+		updateStudent();
 
 	}
 
-	public static void readStudent() {
+	private static void readStudent() {
+
 		try {
 			// create a student object
 			LOGGER.info("Retrieving student...");
 
-			// start a transaction
-			session.beginTransaction();
-
 			Student myStudent = session.get(Student.class, 1);
-			
+
 			LOGGER.info(myStudent.toString());
 
 		}
@@ -49,6 +53,36 @@ public class ReadStudentDemo {
 
 		finally {
 			createSession.closeSessionFactory();
+		}
+	}
+
+	private static void queryStudent() {
+
+		LOGGER.info("Retrieving student...");
+
+		List<Student> studentList = session.createQuery("from Student s where s.email like '%@haul.com'")
+				.getResultList();
+
+		printStudentList(studentList);
+
+		studentList = session.createQuery("from Student s where s.firstName = 'Paul' ").getResultList();
+
+		printStudentList(studentList);
+	}
+
+	private static void updateStudent() {
+		LOGGER.info("Updating student...");
+
+		int studentId = 1;
+		Student theStudent = session.get(Student.class, studentId);
+		theStudent.setFirstName("Steve");
+		session.createQuery("update Student set email = 'stevew@haul.com' where id = " + studentId).executeUpdate();
+		session.getTransaction().commit();
+	}
+
+	private static void printStudentList(List<Student> studentList) {
+		for (Student student : studentList) {
+			LOGGER.info(student.toString());
 		}
 	}
 }
