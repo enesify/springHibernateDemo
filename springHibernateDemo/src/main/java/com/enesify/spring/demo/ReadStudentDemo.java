@@ -30,8 +30,9 @@ public class ReadStudentDemo {
 		session.beginTransaction();
 
 		// readStudent();
-		// queryStudent();
-		updateStudent();
+		//queryStudent();
+		//updateStudent();
+		deleteStudent();
 
 	}
 
@@ -76,8 +77,26 @@ public class ReadStudentDemo {
 		int studentId = 1;
 		Student theStudent = session.get(Student.class, studentId);
 		theStudent.setFirstName("Steve");
-		session.createQuery("update Student set email = 'stevew@haul.com' where id = " + studentId).executeUpdate();
-		session.getTransaction().commit();
+		try {
+			session.createQuery("update Student set email = 'stevew@haul.com' where id = " + studentId).executeUpdate();
+			session.getTransaction().commit();
+			LOGGER.info("Updated...");
+		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
+		}
+	}
+	
+	private static void deleteStudent() {
+		LOGGER.info("Deleting student...");
+		
+		try {
+			session.createQuery("delete from Student where id = 2").executeUpdate();
+			session.getTransaction().commit();
+			LOGGER.info("Deleted...");
+		} catch (Exception e) {
+			LOGGER.error(e.getMessage()); 
+		}
+		System.out.println();
 	}
 
 	private static void printStudentList(List<Student> studentList) {
