@@ -9,8 +9,6 @@ import org.hibernate.cfg.Configuration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.enesify.spring.demo.entity.Student;
-
 public class CreateSession {
 
 	public static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
@@ -19,20 +17,34 @@ public class CreateSession {
 
 	private static Session session;
 
-	public CreateSession() {
+	//instantiates the createSession object for single annotated class
+	public CreateSession(Class<?> annotatedClass) {
 		try {
 			LOGGER.info("Session creating...");
-			startSession();
+			startSession(annotatedClass);
 			LOGGER.info("Session created...");
 		} catch (Exception ex) {
 			LOGGER.error(ex.getMessage());
 		}
 	}
+	
+	//instantiates the createSession object for two annotated classes
+	public CreateSession(Class<?> annotatedClass1,Class<?> annotatedClass2) {
+		try {
+			LOGGER.info("Session creating...");
+			startSession(annotatedClass1, annotatedClass2);
+			LOGGER.info("Session created...");
+		} catch (Exception ex) {
+			LOGGER.error(ex.getMessage());
+		}
+	}
+	
 
-	public static void startSession() {
+	//annotates the session factory with single class
+	public static void startSession(Class<?> annotatedClass) {
 		// create session factory
 		try {
-			factory = new Configuration().configure().addAnnotatedClass(Student.class).buildSessionFactory();
+			factory = new Configuration().configure().addAnnotatedClass(annotatedClass).buildSessionFactory();
 		} catch (HibernateException ex) {
 			LOGGER.error(ex.getMessage());
 		}
@@ -45,6 +57,24 @@ public class CreateSession {
 			LOGGER.error(ex.getMessage());
 		}
 	}
+	
+	//annotates the session factory with two classes
+		public static void startSession(Class<?> annotatedClass1, Class<?> annotatedClass2 ) {
+			// create session factory
+			try {
+				factory = new Configuration().configure().addAnnotatedClass(annotatedClass1).addAnnotatedClass(annotatedClass2).buildSessionFactory();
+			} catch (HibernateException ex) {
+				LOGGER.error(ex.getMessage());
+			}
+
+			// create session
+			try {
+				session.close();
+				session = factory.openSession();
+			} catch (HibernateException ex) {
+				LOGGER.error(ex.getMessage());
+			}
+		}
 
 	public void closeSessionFactory() {
 		LOGGER.info("Trying to close session...");

@@ -18,7 +18,7 @@ public class CreateStudentDemo {
 
 	public static void main(String[] args) {
 
-		createSession = new CreateSession();
+		createSession = new CreateSession(Student.class);
 
 		session = CreateSession.getSession();
 

@@ -20,7 +20,7 @@ public class ReadStudentDemo {
 
 	public static void main(String[] args) {
 
-		createSession = new CreateSession();
+		createSession = new CreateSession(Student.class);
 
 		SessionFactory sessionFactory = createSession.getFactory();
 
@@ -29,10 +29,10 @@ public class ReadStudentDemo {
 		// start a transaction
 		session.beginTransaction();
 
-		// readStudent();
+		readStudent();
 		//queryStudent();
 		//updateStudent();
-		deleteStudent();
+		//deleteStudent();
 
 	}
 

@@ -1,0 +1,76 @@
+package com.enesify.spring.demo.entity;
+
+import java.io.Serializable;
+import java.math.BigInteger;
+
+import javax.persistence.*;
+
+/**
+ * The persistent class for the INSTRUCTOR database table.
+ * 
+ */
+@Entity
+public class Instructor implements Serializable {
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private BigInteger id;
+
+	private String email;
+
+	@Column(name = "FIRST_NAME")
+	private String firstName;
+
+	@Column(name = "LAST_NAME")
+	private String lastName;
+
+	// uni-directional one-to-one association to InstructorDetail
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "INSTRUCTOR_DETAIL_ID")
+	private InstructorDetail instructorDetail;
+
+	public Instructor() {
+	}
+
+	public BigInteger getId() {
+		return this.id;
+	}
+
+	public void setId(BigInteger id) {
+		this.id = id;
+	}
+
+	public String getEmail() {
+		return this.email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getFirstName() {
+		return this.firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return this.lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public InstructorDetail getInstructorDetail() {
+		return this.instructorDetail;
+	}
+
+	public void setInstructorDetail(InstructorDetail instructorDetail) {
+		this.instructorDetail = instructorDetail;
+	}
+
+}
