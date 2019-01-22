@@ -21,6 +21,9 @@ public class InstructorDetail implements Serializable {
 
 	@Column(name = "YOUTUBE_CHANNEL")
 	private String youtubeChannel;
+	
+	@OneToOne(mappedBy="instructorDetail", cascade=CascadeType.ALL)
+	private Instructor instructor;
 
 	public InstructorDetail() {
 	}
@@ -53,6 +56,23 @@ public class InstructorDetail implements Serializable {
 	public void setYoutubeChannel(String youtubeChannel) {
 		this.youtubeChannel = youtubeChannel;
 	}
+
+	public Instructor getInstructor() {
+		return instructor;
+	}
+
+	public void setInstructor(Instructor instructor) {
+		this.instructor = instructor;
+	}
+
+	@Override
+	public String toString() {
+		return "InstructorDetail [id=" + id + ", hobby=" + hobby + ", youtubeChannel=" + youtubeChannel + "]";
+	}
+
+	
+	
+	
 
 	/*
 	 * public List<Instructor> getInstructors() { return this.instructors; }

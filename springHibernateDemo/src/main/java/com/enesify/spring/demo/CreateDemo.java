@@ -23,8 +23,42 @@ public class CreateDemo {
 
 		session = CreateSession.getSession();
 
-		saveStudent();
+		//saveStudent();
+		
+		//get();
+		
+		delete();
 
+	}
+
+	private static void delete() {
+		try {
+			session.beginTransaction();
+			
+			InstructorDetail instructorDetail = session.get(InstructorDetail.class, 4L);
+			InstructorDetail deletedInstructorDetail = instructorDetail;
+			
+			session.delete(instructorDetail);
+			
+			session.getTransaction().commit();
+
+			LOGGER.info("Deleted instructor : "+ deletedInstructorDetail.getInstructor().toString());
+			LOGGER.info("Deleted instructor detail : "+ deletedInstructorDetail.toString());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+
+	private static void get() {
+		try {
+			session.beginTransaction();
+			Instructor instructor = session.get(Instructor.class, 4L);
+			LOGGER.info(instructor.getInstructorDetail().toString());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 	}
 
 	public static void saveStudent() {
@@ -59,6 +93,7 @@ public class CreateDemo {
 		}
 
 		finally {
+			session.close();
 			createSession.closeSessionFactory();
 		}
 	}

@@ -79,4 +79,12 @@ public class Instructor implements Serializable {
 		this.instructorDetail = instructorDetail;
 	}
 
+	@Override
+	public String toString() {
+		return "Instructor [id=" + id + ", email=" + email + ", firstName=" + firstName + ", lastName=" + lastName
+				+ ", instructorDetail=" + instructorDetail + "]";
+	}
+	
+	
+
 }
