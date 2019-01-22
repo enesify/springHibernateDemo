@@ -1,8 +1,6 @@
 package com.enesify.spring.demo.entity;
 
 import java.io.Serializable;
-import java.math.BigInteger;
-
 import javax.persistence.*;
 
 /**
@@ -10,12 +8,14 @@ import javax.persistence.*;
  * 
  */
 @Entity
+@Table(name = "INSTRUCTOR")
 public class Instructor implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	private BigInteger id;
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="instructorSeq")
+	@SequenceGenerator(sequenceName="SEQ_INSTRUCTOR", allocationSize = 1, name = "instructorSeq")
+	private long id;
 
 	private String email;
 
@@ -25,7 +25,7 @@ public class Instructor implements Serializable {
 	@Column(name = "LAST_NAME")
 	private String lastName;
 
-	// uni-directional one-to-one association to InstructorDetail
+	// bi-directional many-to-one association to InstructorDetail
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "INSTRUCTOR_DETAIL_ID")
 	private InstructorDetail instructorDetail;
@@ -33,11 +33,17 @@ public class Instructor implements Serializable {
 	public Instructor() {
 	}
 
-	public BigInteger getId() {
+	public Instructor(String firstName, String lastName, String email) {
+		this.email = email;
+		this.firstName = firstName;
+		this.lastName = lastName;
+	}
+
+	public long getId() {
 		return this.id;
 	}
 
-	public void setId(BigInteger id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 

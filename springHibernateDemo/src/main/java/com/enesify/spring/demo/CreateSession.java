@@ -2,7 +2,7 @@ package com.enesify.spring.demo;
 
 import java.lang.invoke.MethodHandles;
 
-import org.hibernate.HibernateException;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -45,16 +45,18 @@ public class CreateSession {
 		// create session factory
 		try {
 			factory = new Configuration().configure().addAnnotatedClass(annotatedClass).buildSessionFactory();
-		} catch (HibernateException ex) {
-			LOGGER.error(ex.getMessage());
+		} catch (Exception ex) {
+			//LOGGER.error(ex.getMessage());
+			ex.printStackTrace();
 		}
 
 		// create session
 		try {
-			session.close();
+			//session.close();
 			session = factory.openSession();
-		} catch (HibernateException ex) {
-			LOGGER.error(ex.getMessage());
+		} catch (Exception ex) {
+			//LOGGER.error(ex.getMessage());
+			ex.printStackTrace();
 		}
 	}
 	
@@ -63,16 +65,18 @@ public class CreateSession {
 			// create session factory
 			try {
 				factory = new Configuration().configure().addAnnotatedClass(annotatedClass1).addAnnotatedClass(annotatedClass2).buildSessionFactory();
-			} catch (HibernateException ex) {
-				LOGGER.error(ex.getMessage());
+			} catch (Exception ex) {
+				//LOGGER.error(ex.getMessage());
+				ex.printStackTrace();
 			}
 
 			// create session
 			try {
-				session.close();
+				//session.close();
 				session = factory.openSession();
-			} catch (HibernateException ex) {
-				LOGGER.error(ex.getMessage());
+			} catch (Exception ex) {
+				//LOGGER.error(ex.getMessage());
+				ex.printStackTrace();
 			}
 		}
 
