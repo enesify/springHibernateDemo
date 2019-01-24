@@ -13,8 +13,8 @@ public class Instructor implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="instructorSeq")
-	@SequenceGenerator(sequenceName="SEQ_INSTRUCTOR", allocationSize = 1, name = "instructorSeq")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "instructorSeq")
+	@SequenceGenerator(sequenceName = "SEQ_INSTRUCTOR", allocationSize = 1, name = "instructorSeq")
 	private long id;
 
 	private String email;
@@ -84,7 +84,5 @@ public class Instructor implements Serializable {
 		return "Instructor [id=" + id + ", email=" + email + ", firstName=" + firstName + ", lastName=" + lastName
 				+ ", instructorDetail=" + instructorDetail + "]";
 	}
-	
-	
 
 }
